@@ -52,7 +52,17 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
     
     def wspolrzedne_funkcja(self):
         wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
+        K = []
+        iden = 0
         for element in wybrane_elementy:
             wsp = element.geometry().asPoint()
-            self.wspolrzedne.append(f'{wsp}\n')     
+            X = wsp.x()
+            Y = wsp.y()
+            K.append([X, Y])
+            iden += 1
+            self.wspolrzedne.append(f'Kordynaty punktu {iden}: X = {X}, Y = {Y}')
+            
+    def pole_powierzchni(self):
+        pass
+        
          

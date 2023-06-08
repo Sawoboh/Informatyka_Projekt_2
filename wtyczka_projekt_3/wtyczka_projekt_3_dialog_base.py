@@ -34,12 +34,18 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         self.roznica_wysokosci.setGeometry(QtCore.QRect(34, 150, 131, 23))
         self.roznica_wysokosci.setObjectName("roznica_wysokosci")
         self.wspolrzedne = QtWidgets.QTextEdit(WtyczkaProjekt3DialogBase)
-        self.wspolrzedne.setGeometry(QtCore.QRect(50, 190, 361, 87))
+        self.wspolrzedne.setGeometry(QtCore.QRect(50, 350, 361, 87))
         self.wspolrzedne.setObjectName("wspolrzedne")
-        self.roznica_wysokosci_2 = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
-        self.roznica_wysokosci_2.setGeometry(QtCore.QRect(210, 150, 81, 21))
-        self.roznica_wysokosci_2.setText("")
-        self.roznica_wysokosci_2.setObjectName("roznica_wysokosci_2")
+        self.roznica_wysokosci_wynik = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
+        self.roznica_wysokosci_wynik.setGeometry(QtCore.QRect(210, 150, 81, 21))
+        self.roznica_wysokosci_wynik.setText("")
+        self.roznica_wysokosci_wynik.setObjectName("roznica_wysokosci_wynik")
+        self.pole_powierzchni = QtWidgets.QPushButton(WtyczkaProjekt3DialogBase)
+        self.pole_powierzchni.setGeometry(QtCore.QRect(40, 200, 101, 23))
+        self.pole_powierzchni.setObjectName("pole_powierzchni")
+        self.pole_powierzchni_wynik = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
+        self.pole_powierzchni_wynik.setGeometry(QtCore.QRect(180, 190, 71, 31))
+        self.pole_powierzchni_wynik.setObjectName("pole_powierzchni_wynik")
 
         self.retranslateUi(WtyczkaProjekt3DialogBase)
         self.button_box.accepted.connect(WtyczkaProjekt3DialogBase.accept) # type: ignore
@@ -51,6 +57,8 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         WtyczkaProjekt3DialogBase.setWindowTitle(_translate("WtyczkaProjekt3DialogBase", "Projekt3"))
         self.zlicz_punkty.setText(_translate("WtyczkaProjekt3DialogBase", "zlicz"))
         self.roznica_wysokosci.setText(_translate("WtyczkaProjekt3DialogBase", "Rożnica Wysokości"))
+        self.pole_powierzchni.setText(_translate("WtyczkaProjekt3DialogBase", "Pole powierzchni"))
+        self.pole_powierzchni_wynik.setText(_translate("WtyczkaProjekt3DialogBase", "TextLabel"))
 from qgsmaplayercombobox import QgsMapLayerComboBox
 
 
