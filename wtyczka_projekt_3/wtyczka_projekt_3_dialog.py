@@ -60,9 +60,38 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             Y = wsp.y()
             K.append([X, Y])
             iden += 1
-            self.wspolrzedne.append(f'Kordynaty punktu {iden}: X = {X}, Y = {Y}')
+            self.wspolrzedne.append(f'Kordynaty punktu {iden}: X = {X:.3f}, Y = {Y:.3f}')
             
+    def roznica_wyskosci(self):
+        liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
+        if liczba_elementów == 2: 
+            wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures() 
+            K=[]
+            for element in wybrane_elementy:
+                wsp = element.geometry().asPoint()
+                Z = wsp.z()
+                K.append(Z)
+                roznica_wysokosci=K[0]-K[1]
+                self.roznica_wysokosci_wynik.setText(str(roznica_wysokosci))
+        elif liczba_elementów < 2:
+            self.roznica_wysokosci_wynik.setText("Wybrano za mało punktów")
+        elif liczba_elementów > 2:
+            self.roznica_wysokosci_wynik.setText("Wybrano za dużo punktów")
+        
     def pole_powierzchni(self):
-        pass
+        liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
+        if liczba_elementów >= 3:
+            wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
+            K = []
+            iden = 0
+            for element in wybrane_elementy:
+                wsp = element.geometry().asPoint()
+                X = wsp.x()
+                Y = wsp.y()
+                K.append([X, Y])
+            if len(K)>2:
+                pole=0
+        elif liczba_elementów < 3:
+            self.roznica_wysokosci_wynik.setText("Wybrano za mało punktów")
         
          
