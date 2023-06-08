@@ -43,10 +43,16 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         
+        self.roznica_wysokosci.clicked.connect(self.wspolrzedne_funkcja)
         self.zlicz_punkty.clicked.connect(self.licz_elementy)
         
     def licz_elementy(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
         self.pokaz_ilosc_punktow.setText(str(liczba_elementów))
-         
+    
+    def wspolrzedne_funkcja(self):
+        wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
+        for element in wybrane_elementy:
+            wsp = element.geometry().asPoint()
+            self.wspolrzedne.append(f'{wsp}\n')     
          

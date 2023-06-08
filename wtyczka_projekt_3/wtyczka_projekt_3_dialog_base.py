@@ -21,7 +21,7 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         self.button_box.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.button_box.setObjectName("button_box")
         self.zlicz_punkty = QtWidgets.QPushButton(WtyczkaProjekt3DialogBase)
-        self.zlicz_punkty.setGeometry(QtCore.QRect(30, 100, 93, 28))
+        self.zlicz_punkty.setGeometry(QtCore.QRect(30, 90, 93, 28))
         self.zlicz_punkty.setObjectName("zlicz_punkty")
         self.pokaz_ilosc_punktow = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
         self.pokaz_ilosc_punktow.setGeometry(QtCore.QRect(180, 100, 111, 31))
@@ -30,6 +30,16 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         self.mMapLayerComboBox_layers = QgsMapLayerComboBox(WtyczkaProjekt3DialogBase)
         self.mMapLayerComboBox_layers.setGeometry(QtCore.QRect(80, 40, 160, 27))
         self.mMapLayerComboBox_layers.setObjectName("mMapLayerComboBox_layers")
+        self.roznica_wysokosci = QtWidgets.QPushButton(WtyczkaProjekt3DialogBase)
+        self.roznica_wysokosci.setGeometry(QtCore.QRect(34, 150, 131, 23))
+        self.roznica_wysokosci.setObjectName("roznica_wysokosci")
+        self.wspolrzedne = QtWidgets.QTextEdit(WtyczkaProjekt3DialogBase)
+        self.wspolrzedne.setGeometry(QtCore.QRect(50, 190, 361, 87))
+        self.wspolrzedne.setObjectName("wspolrzedne")
+        self.roznica_wysokosci_2 = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
+        self.roznica_wysokosci_2.setGeometry(QtCore.QRect(210, 150, 81, 21))
+        self.roznica_wysokosci_2.setText("")
+        self.roznica_wysokosci_2.setObjectName("roznica_wysokosci_2")
 
         self.retranslateUi(WtyczkaProjekt3DialogBase)
         self.button_box.accepted.connect(WtyczkaProjekt3DialogBase.accept) # type: ignore
@@ -40,6 +50,7 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         _translate = QtCore.QCoreApplication.translate
         WtyczkaProjekt3DialogBase.setWindowTitle(_translate("WtyczkaProjekt3DialogBase", "Projekt3"))
         self.zlicz_punkty.setText(_translate("WtyczkaProjekt3DialogBase", "zlicz"))
+        self.roznica_wysokosci.setText(_translate("WtyczkaProjekt3DialogBase", "Rożnica Wysokości"))
 from qgsmaplayercombobox import QgsMapLayerComboBox
 
 
