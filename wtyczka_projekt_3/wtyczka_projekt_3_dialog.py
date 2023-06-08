@@ -43,8 +43,11 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         
-        self.roznica_wysokosci.clicked.connect(self.wspolrzedne_funkcja)
+        self.roznica_wysokosci.clicked.connect(self.roznica_wyskosci_funkcja)
         self.zlicz_punkty.clicked.connect(self.licz_elementy)
+        self.wyswietlanie_wspolrzednych.clicked.connect(self.wspolrzedne_funkcja)
+        self.pole_powierzchni.clicked.connect(self.pole_powierzchni_funkcja)
+        self.wyczyszczenie_tablicy.clicked.connect(self.wyczyszczenie_tablicy_funkcja)
         
     def licz_elementy(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
@@ -62,7 +65,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             iden += 1
             self.wspolrzedne.append(f'Kordynaty punktu {iden}: X = {X:.3f}, Y = {Y:.3f}')
             
-    def roznica_wyskosci(self):
+    def roznica_wyskosci_funkcja(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
         if liczba_elementów == 2: 
             wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures() 
@@ -78,7 +81,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         elif liczba_elementów > 2:
             self.roznica_wysokosci_wynik.setText("Wybrano za dużo punktów")
         
-    def pole_powierzchni(self):
+    def pole_powierzchni_funkcja(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
         if liczba_elementów >= 3:
             wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
@@ -89,9 +92,21 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 X = wsp.x()
                 Y = wsp.y()
                 K.append([X, Y])
-            if len(K)>2:
-                pole=0
+            suma=0
+            for i in range(len(K)):
+                if i<len(K)-1:
+                    P=(K[i][0]*(K[i+1][1]-K[i-1][1]))
+                    print(P)
+                    suma += P
+            P=(K[-1][0]*(K[0][1]-K[-2][1]))
+            suma += P
+            suma=0.5*abs(suma)    
+            self.pole_powierzchni_wynik.setText(str(suma))
         elif liczba_elementów < 3:
-            self.roznica_wysokosci_wynik.setText("Wybrano za mało punktów")
+            self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
+            
+    def wyczyszczenie_tablicy_funkcja(self):
+        self.wspolrzedne.clear()
+        
         
          
