@@ -26,7 +26,7 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-
+from qgis.PyQt.QtWidgets import QToolButton
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'wtyczka_projekt_3_dialog_base.ui'))
@@ -48,6 +48,23 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.wyswietlanie_wspolrzednych.clicked.connect(self.wspolrzedne_funkcja)
         self.pole_powierzchni.clicked.connect(self.pole_powierzchni_funkcja)
         self.wyczyszczenie_tablicy.clicked.connect(self.wyczyszczenie_tablicy_funkcja)
+        self.przycisk_zamkniecia.clicked.connect(self.wyczyszczenie_danych_funkcja)
+        '''
+        self.Wybierz_jednostke.setPopupMode(QToolButton.MenuButtonPopup)
+        self.Wybierz_jednostke_funkcja()
+        
+         
+    def Wybierz_jednostke_funkcja(self):
+        menu=self.Wybierz_jednostke.menu()
+        
+        action_ha=menu.addAction("ha")
+        action_a=menu.addAction("a")
+        action_m2=menu.addAction("metry²")
+        
+        action_ha.triggered.connect(lambda: self.set_area_unit("ha"))
+        action_a.triggered.connect(lambda: self.set_area_unit("a"))
+        action_m2.triggered.connect(lambda: self.set_area_unit("metry²"))
+        '''
         
     def licz_elementy(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
@@ -107,6 +124,13 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             
     def wyczyszczenie_tablicy_funkcja(self):
         self.wspolrzedne.clear()
+        
+    def wyczyszczenie_danych_funkcja(self):
+        self.wspolrzedne.clear()
+        self.pole_powierzchni_wynik.clear()
+        self.roznica_wysokosci_wynik.clear()
+        self.pokaz_ilosc_punktow.clear()
+        
         
         
          
