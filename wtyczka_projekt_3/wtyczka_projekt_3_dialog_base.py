@@ -27,9 +27,9 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         self.pokaz_ilosc_punktow.setGeometry(QtCore.QRect(180, 100, 111, 31))
         self.pokaz_ilosc_punktow.setText("")
         self.pokaz_ilosc_punktow.setObjectName("pokaz_ilosc_punktow")
-        self.mMapLayerComboBox = QgsMapLayerComboBox(WtyczkaProjekt3DialogBase)
-        self.mMapLayerComboBox.setGeometry(QtCore.QRect(80, 40, 160, 27))
-        self.mMapLayerComboBox.setObjectName("mMapLayerComboBox")
+        self.mMapLayerComboBox_layers = QgsMapLayerComboBox(WtyczkaProjekt3DialogBase)
+        self.mMapLayerComboBox_layers.setGeometry(QtCore.QRect(80, 40, 160, 27))
+        self.mMapLayerComboBox_layers.setObjectName("mMapLayerComboBox_layers")
 
         self.retranslateUi(WtyczkaProjekt3DialogBase)
         self.button_box.accepted.connect(WtyczkaProjekt3DialogBase.accept) # type: ignore
