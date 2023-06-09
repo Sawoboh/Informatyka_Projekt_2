@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.4.25)  9 JUN 2023 16:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.4.25)  9 JUN 2023 17:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -942,8 +942,21 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {C:/Users/amaks/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./settings/W
 GiK-znak.png>] (content/1-Cel_ćwiczenia1.tex)
 (content/2-Wykorzystane narzedzia i materiały potrzebne do replikacji ćwiczen
-ia1.tex) (content/3-Przebieg ćwiczenia1.tex [2] [3])
-(content/4-Podsumowanie1.tex [4]) (sprawko_main.bbl [5]
+ia1.tex
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 \end{enumerate}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+) (content/3-Przebieg ćwiczenia1.tex [2] [3]) (content/4-Podsumowanie1.tex
+[4]) (sprawko_main.bbl [5]
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 50
 .
 
@@ -973,10 +986,10 @@ Package rerunfilecheck Info: File `sprawko_main.out' has not changed.
 (rerunfilecheck)             Checksum: 710C735B15932D54825682660CE2D18E;4007.
  ) 
 Here is how much of TeX's memory you used:
- 17441 strings out of 475386
- 285476 string characters out of 5776906
- 927402 words of memory out of 5000000
- 38492 multiletter control sequences out of 15000+600000
+ 17438 strings out of 475386
+ 285472 string characters out of 5776906
+ 927442 words of memory out of 5000000
+ 38494 multiletter control sequences out of 15000+600000
  479217 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  77i,11n,80p,1170b,588s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -992,10 +1005,12 @@ eX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\amaks\AppData\Loca
 l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1440.pk><C:/Users/amaks/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/amak
 s/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Use
-rs/amaks/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on sprawko_main.pdf (6 pages, 274492 bytes).
+rs/amaks/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam
+10.pfb><C:/Users/amaks/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/uc
+rr8a.pfb>
+Output written on sprawko_main.pdf (6 pages, 282597 bytes).
 PDF statistics:
  600 PDF objects out of 1000 (max. 8388607)
- 41 named destinations out of 1000 (max. 500000)
+ 36 named destinations out of 1000 (max. 500000)
  174 words of extra memory for PDF output out of 10000 (max. 10000000)
 
