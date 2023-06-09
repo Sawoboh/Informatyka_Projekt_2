@@ -75,7 +75,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Rożnica Wysokości</string>
+    <string>Rożnica wysokości</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="wspolrzedne">
@@ -189,7 +189,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Azymut miedzy Punktami</string>
+    <string>Azymut</string>
    </property>
   </widget>
   <widget class="QPushButton" name="dlugosc_odcinka">
@@ -338,7 +338,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Zresrtuj wszystskie pola</string>
+    <string>Zresrtuj wszytskie pola</string>
    </property>
   </widget>
   <widget class="QLabel" name="poligon">

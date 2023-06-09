@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.4.25)  8 JUN 2023 14:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.4.25)  9 JUN 2023 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -940,10 +940,10 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 {C:/Users/amaks/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./settings/W
-GiK-znak.png>] (content/1-Cel_ćwiczenia.tex)
+GiK-znak.png>] (content/1-Cel_ćwiczenia1.tex)
 (content/2-Wykorzystane narzedzia i materiały potrzebne do replikacji ćwiczen
-ia.tex) (content/3-Przebieg ćwiczenia.tex [2] [3]) [4]
-(content/4-Podsumowanie.tex) (sprawko_main.bbl [5]
+ia1.tex) (content/3-Przebieg ćwiczenia1.tex [2] [3])
+(content/4-Podsumowanie1.tex [4]) (sprawko_main.bbl [5]
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 50
 .
 
@@ -974,12 +974,12 @@ Package rerunfilecheck Info: File `sprawko_main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  17441 strings out of 475386
- 285456 string characters out of 5776906
+ 285476 string characters out of 5776906
  927402 words of memory out of 5000000
  38492 multiletter control sequences out of 15000+600000
  479217 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 77i,11n,80p,1169b,588s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 77i,11n,80p,1170b,588s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\amaks\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti
 1000.pk> <C:\Users\amaks\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ecbx1200.pk> <C:\Users\amaks\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
