@@ -53,23 +53,8 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.przycisk_zamkniecia.clicked.connect(self.wyczyszczenie_danych_funkcja)
         self.azymut.clicked.connect(self.azymut_funkcja)
         self.dlugosc_odcinka.clicked.connect(self.dlugosc_odcinka_funkcja)
-        '''
-        self.Wybierz_jednostke.setPopupMode(QToolButton.MenuButtonPopup)
-        self.Wybierz_jednostke_funkcja()
-        
-         
-    def Wybierz_jednostke_funkcja(self):
-        menu=self.Wybierz_jednostke.menu()
-        
-        action_ha=menu.addAction("ha")
-        action_a=menu.addAction("a")
-        action_m2=menu.addAction("metry²")
-        
-        action_ha.triggered.connect(lambda: self.set_area_unit("ha"))
-        action_a.triggered.connect(lambda: self.set_area_unit("a"))
-        action_m2.triggered.connect(lambda: self.set_area_unit("metry²"))
-        '''
-        
+        self.resetuj_wszystko.clicked.connect(self.wyczyszczenie_danych_funkcja)
+    
     def dlugosc_odcinka_funkcja(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
         if liczba_elementów == 2:
@@ -203,6 +188,18 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 self.pole_powierzchni_wynik.setText(str(suma/100))
             if 'hektary' == self.jednostka_pole.currentText():
                 self.pole_powierzchni_wynik.setText(str(suma/10000))
+            self.poligon_wybor.toggled.connect(lambda checked: self.radioButton1Toggled(checked, K))
+            
+        elif liczba_elementów < 3:
+            self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
+    
+    def radioButton1Toggled(self, checked, K):
+        if checked:
+            layer_name = 'poligon_obliczonego_pola'
+            existing_layers = QgsProject.instance().mapLayersByName(layer_name)
+
+            for warstaw_poligon in existing_layers:
+                QgsProject.instance().removeMapLayer(warstaw_poligon)
             
             warstaw_poligon = QgsVectorLayer('Polygon?crs=EPSG:2180', 'poligion_obliczonego_pola', 'memory')
             warstaw_poligon.startEditing()
@@ -223,10 +220,6 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             warstaw_poligon.commitChanges()
             warstaw_poligon.updateExtents()
             QgsProject.instance().addMapLayer(warstaw_poligon)
-            
-
-        elif liczba_elementów < 3:
-            self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
             
     def wyczyszczenie_tablicy_funkcja(self):
         self.wspolrzedne.clear()
