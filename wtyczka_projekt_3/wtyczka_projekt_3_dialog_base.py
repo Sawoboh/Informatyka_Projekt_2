@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_WtyczkaProjekt3DialogBase(object):
     def setupUi(self, WtyczkaProjekt3DialogBase):
         WtyczkaProjekt3DialogBase.setObjectName("WtyczkaProjekt3DialogBase")
-        WtyczkaProjekt3DialogBase.resize(843, 673)
+        WtyczkaProjekt3DialogBase.resize(796, 673)
         self.przycisk_zamkniecia = QtWidgets.QDialogButtonBox(WtyczkaProjekt3DialogBase)
         self.przycisk_zamkniecia.setGeometry(QtCore.QRect(460, 621, 371, 41))
         self.przycisk_zamkniecia.setOrientation(QtCore.Qt.Horizontal)
