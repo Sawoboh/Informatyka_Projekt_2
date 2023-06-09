@@ -27,7 +27,8 @@ from math import atan2, sqrt, pi
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtWidgets import QToolButton
+from qgis.core import QgsField, QgsFeature, QgsGeometry, QgsVectorLayer, QgsPointXY, QgsProject
+from PyQt5.QtCore import QVariant
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'wtyczka_projekt_3_dialog_base.ui'))
@@ -80,7 +81,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 Y = wsp.y()
                 K.append([X, Y])
             odl=sqrt((K[0][0]-K[1][0])**2+(K[0][1]-K[1][1])**2)
-            self.dlugosc_odcinka_wynik.setText(str(odl))
+            self.dlugosc_odcinka_wynik.setText(f'Odległosć pomiędzy punktami wynosi: {odl:.3f}')
             self.blad_rozwiazanie.clear()
         elif liczba_elementów < 2:
             self.dlugosc_odcinka_wynik.setText("Błąd")
@@ -107,13 +108,13 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                     Az += 360
                 elif Az > 360:
                     Az -= 360
-                self.azymut_wynik.setText(str(Az))
+                self.azymut_wynik.setText(f'Azymut wynosi: {Az:.7f}')
                 Az_odw = Az+180
                 if Az_odw < 0:
                     Az_odw += 360
                 elif Az_odw > 360:
                     Az_odw -= 360
-                self.azymut_odwrotny_wynik.setText(str(Az_odw))
+                self.azymut_odwrotny_wynik.setText(f'Azymut odwrotny wynosi: {Az:.7f}')
                 self.blad_rozwiazanie.clear()
             elif 'grady' == self.jednostka_azymut.currentText():
                 Az =Az*200/pi
@@ -121,13 +122,13 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                     Az += 400
                 elif Az > 400:
                     Az -= 400
-                self.azymut_wynik.setText(str(Az))
+                self.azymut_wynik.setText(f'Azymut wynosi: {Az:.4f}')
                 Az_odw = Az+200
                 if Az_odw < 0:
                     Az_odw += 400
                 elif Az_odw > 400:
                     Az_odw -= 400
-                self.azymut_odwrotny_wynik.setText(str(Az_odw))
+                self.azymut_odwrotny_wynik.setText(f'Azymut odwrotny wynosi: {Az:.4f}')
                 self.blad_rozwiazanie.clear()
         elif liczba_elementów < 2:
             self.azymut_wynik.setText("Błąd")
@@ -166,7 +167,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 Z = wsp.z()
                 K.append(Z)
                 roznica_wysokosci=K[0]-K[1]
-            self.roznica_wysokosci_wynik.setText(str(roznica_wysokosci))
+            self.roznica_wysokosci_wynik.setText(f'{roznica_wysokosci:.3f}')
             self.blad_rozwiazanie.clear()
         elif liczba_elementów < 2:
             self.roznica_wysokosci_wynik.setText("Błąd")
@@ -202,6 +203,28 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 self.pole_powierzchni_wynik.setText(str(suma/100))
             if 'hektary' == self.jednostka_pole.currentText():
                 self.pole_powierzchni_wynik.setText(str(suma/10000))
+            
+            warstaw_poligon = QgsVectorLayer('Polygon?crs=EPSG:2180', 'poligion_obliczonego_pola', 'memory')
+            warstaw_poligon.startEditing()
+            
+            field = QgsField("Area", QVariant.Double)
+            warstaw_poligon.addAttribute(field)
+
+            polygon = QgsGeometry.fromPolygonXY([[QgsPointXY(point[0], point[1]) for point in K]])
+            
+            area = polygon.area()
+            attributes = [area]
+            
+            feature = QgsFeature()
+            feature.setGeometry(polygon)
+            feature.setAttributes(attributes)
+            warstaw_poligon.addFeature(feature)
+            
+            warstaw_poligon.commitChanges()
+            warstaw_poligon.updateExtents()
+            QgsProject.instance().addMapLayer(warstaw_poligon)
+            
+
         elif liczba_elementów < 3:
             self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
             
