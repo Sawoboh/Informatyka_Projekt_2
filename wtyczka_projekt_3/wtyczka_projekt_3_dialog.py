@@ -184,42 +184,34 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             suma=0.5*abs(suma)   
             if 'metry2' == self.jednostka_pole.currentText():
                 self.pole_powierzchni_wynik.setText(str(suma))
-            if 'ary' == self.jednostka_pole.currentText():
+            elif 'ary' == self.jednostka_pole.currentText():
                 self.pole_powierzchni_wynik.setText(str(suma/100))
-            if 'hektary' == self.jednostka_pole.currentText():
+            elif 'hektary' == self.jednostka_pole.currentText():
                 self.pole_powierzchni_wynik.setText(str(suma/10000))
-            self.poligon_wybor.toggled.connect(lambda checked: self.radioButton1Toggled(checked, K))
-            
+                
+            if 'Tak' == self.poligon_wybor.currentText():
+                warstaw_poligon = QgsVectorLayer('Polygon?crs=EPSG:2180', 'poligion_obliczonego_pola', 'memory')
+                warstaw_poligon.startEditing()
+                
+                field = QgsField("Area", QVariant.Double)
+                warstaw_poligon.addAttribute(field)
+
+                polygon = QgsGeometry.fromPolygonXY([[QgsPointXY(point[0], point[1]) for point in K]])
+                
+                area = polygon.area()
+                attributes = [area]
+                
+                feature = QgsFeature()
+                feature.setGeometry(polygon)
+                feature.setAttributes(attributes)
+                warstaw_poligon.addFeature(feature)
+                
+                warstaw_poligon.commitChanges()
+                warstaw_poligon.updateExtents()
+                QgsProject.instance().addMapLayer(warstaw_poligon)
+                
         elif liczba_elementów < 3:
             self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
-    
-    def radioButton1Toggled(self, checked, K):
-        if checked:
-            layer_name = 'poligon_obliczonego_pola'
-            existing_layers = QgsProject.instance().mapLayersByName(layer_name)
-
-            for warstaw_poligon in existing_layers:
-                QgsProject.instance().removeMapLayer(warstaw_poligon)
-            
-            warstaw_poligon = QgsVectorLayer('Polygon?crs=EPSG:2180', 'poligion_obliczonego_pola', 'memory')
-            warstaw_poligon.startEditing()
-            
-            field = QgsField("Area", QVariant.Double)
-            warstaw_poligon.addAttribute(field)
-
-            polygon = QgsGeometry.fromPolygonXY([[QgsPointXY(point[0], point[1]) for point in K]])
-            
-            area = polygon.area()
-            attributes = [area]
-            
-            feature = QgsFeature()
-            feature.setGeometry(polygon)
-            feature.setAttributes(attributes)
-            warstaw_poligon.addFeature(feature)
-            
-            warstaw_poligon.commitChanges()
-            warstaw_poligon.updateExtents()
-            QgsProject.instance().addMapLayer(warstaw_poligon)
             
     def wyczyszczenie_tablicy_funkcja(self):
         self.wspolrzedne.clear()

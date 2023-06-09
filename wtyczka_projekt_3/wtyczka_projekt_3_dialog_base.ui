@@ -302,7 +302,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="jednostak_a">
    <property name="geometry">
     <rect>
      <x>370</x>
@@ -315,7 +315,7 @@
     <string>jednostka azymutu:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="jednostak_p">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -326,19 +326,6 @@
    </property>
    <property name="text">
     <string>jednostka:</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="poligon_wybor">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>420</y>
-     <width>231</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Rysuj poligon na nowej warstwie</string>
    </property>
   </widget>
   <widget class="QPushButton" name="resetuj_wszystko">
@@ -353,6 +340,39 @@
    <property name="text">
     <string>Zresrtuj wszystskie pola</string>
    </property>
+  </widget>
+  <widget class="QLabel" name="poligon">
+   <property name="geometry">
+    <rect>
+     <x>14</x>
+     <y>416</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Poligon:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="poligon_wybor">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>420</y>
+     <width>73</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Tak</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Nie</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <customwidgets>
