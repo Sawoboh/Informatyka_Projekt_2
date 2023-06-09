@@ -23,6 +23,7 @@
 """
 
 import os
+from math import atan2, sqrt, pi
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
@@ -30,7 +31,7 @@ from qgis.PyQt.QtWidgets import QToolButton
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'wtyczka_projekt_3_dialog_base.ui'))
-
+    
 
 class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
@@ -49,6 +50,8 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.pole_powierzchni.clicked.connect(self.pole_powierzchni_funkcja)
         self.wyczyszczenie_tablicy.clicked.connect(self.wyczyszczenie_tablicy_funkcja)
         self.przycisk_zamkniecia.clicked.connect(self.wyczyszczenie_danych_funkcja)
+        self.azymut.clicked.connect(self.azymut_funkcja)
+        self.dlugosc_odcinka.clicked.connect(self.dlugosc_odcinka_funkcja)
         '''
         self.Wybierz_jednostke.setPopupMode(QToolButton.MenuButtonPopup)
         self.Wybierz_jednostke_funkcja()
@@ -66,10 +69,81 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         action_m2.triggered.connect(lambda: self.set_area_unit("metry²"))
         '''
         
+    def dlugosc_odcinka_funkcja(self):
+        liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
+        if liczba_elementów == 2:
+            wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures() 
+            K=[]
+            for element in wybrane_elementy:
+                wsp = element.geometry().asPoint()
+                X = wsp.x()
+                Y = wsp.y()
+                K.append([X, Y])
+            odl=sqrt((K[0][0]-K[1][0])**2+(K[0][1]-K[1][1])**2)
+            self.dlugosc_odcinka_wynik.setText(str(odl))
+            self.blad_rozwiazanie.clear()
+        elif liczba_elementów < 2:
+            self.dlugosc_odcinka_wynik.setText("Błąd")
+            self.blad_rozwiazanie.setText("Wybrano za mało punktów")
+        elif liczba_elementów > 2:
+            self.dlugosc_odcinka_wynik.setText("Błąd")
+            self.blad_rozwiazanie.setText("Wybrano za dużo punktów")
+                
+                
+    def azymut_funkcja(self):
+        liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
+        if liczba_elementów == 2:
+            wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures() 
+            K=[]
+            for element in wybrane_elementy:
+                wsp = element.geometry().asPoint()
+                X = wsp.x()
+                Y = wsp.y()
+                K.append([X, Y])
+            Az = atan2((K[1][1]-K[0][1]), (K[1][0]-K[0][0]))
+            if 'stopnie_dziesietne' == self.jednostka_azymut.currentText():
+                Az =Az*180/pi
+                if Az < 0:
+                    Az += 360
+                elif Az > 360:
+                    Az -= 360
+                self.azymut_wynik.setText(str(Az))
+                Az_odw = Az+180
+                if Az_odw < 0:
+                    Az_odw += 360
+                elif Az_odw > 360:
+                    Az_odw -= 360
+                self.azymut_odwrotny_wynik.setText(str(Az_odw))
+                self.blad_rozwiazanie.clear()
+            elif 'grady' == self.jednostka_azymut.currentText():
+                Az =Az*200/pi
+                if Az < 0:
+                    Az += 400
+                elif Az > 400:
+                    Az -= 400
+                self.azymut_wynik.setText(str(Az))
+                Az_odw = Az+200
+                if Az_odw < 0:
+                    Az_odw += 400
+                elif Az_odw > 400:
+                    Az_odw -= 400
+                self.azymut_odwrotny_wynik.setText(str(Az_odw))
+                self.blad_rozwiazanie.clear()
+        elif liczba_elementów < 2:
+            self.azymut_wynik.setText("Błąd")
+            self.azymut_odwrotny_wynik.setText("Błąd")
+            self.blad_rozwiazanie.setText("Wybrano za mało punktów")
+        elif liczba_elementów > 2:
+            self.azymut_wynik.setText("Błąd")
+            self.azymut_odwrotny_wynik.setText("Błąd")
+            self.blad_rozwiazanie.setText("Wybrano za dużo punktów")
+            
+            
+            
     def licz_elementy(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
         self.pokaz_ilosc_punktow.setText(str(liczba_elementów))
-    
+        
     def wspolrzedne_funkcja(self):
         wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
         K = []
@@ -92,12 +166,16 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 Z = wsp.z()
                 K.append(Z)
                 roznica_wysokosci=K[0]-K[1]
-                self.roznica_wysokosci_wynik.setText(str(roznica_wysokosci))
+            self.roznica_wysokosci_wynik.setText(str(roznica_wysokosci))
+            self.blad_rozwiazanie.clear()
         elif liczba_elementów < 2:
-            self.roznica_wysokosci_wynik.setText("Wybrano za mało punktów")
+            self.roznica_wysokosci_wynik.setText("Błąd")
+            self.blad_rozwiazanie.setText("Wybrano za mało punktów")
         elif liczba_elementów > 2:
-            self.roznica_wysokosci_wynik.setText("Wybrano za dużo punktów")
-        
+            self.roznica_wysokosci_wynik.setText("Błąd")
+            self.blad_rozwiazanie.setText("Wybrano za dużo punktów")
+            
+            
     def pole_powierzchni_funkcja(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
         if liczba_elementów >= 3:
@@ -117,8 +195,13 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                     suma += P
             P=(K[-1][0]*(K[0][1]-K[-2][1]))
             suma += P
-            suma=0.5*abs(suma)    
-            self.pole_powierzchni_wynik.setText(str(suma))
+            suma=0.5*abs(suma)   
+            if 'metry2' == self.jednostka_pole.currentText():
+                self.pole_powierzchni_wynik.setText(str(suma))
+            if 'ary' == self.jednostka_pole.currentText():
+                self.pole_powierzchni_wynik.setText(str(suma/100))
+            if 'hektary' == self.jednostka_pole.currentText():
+                self.pole_powierzchni_wynik.setText(str(suma/10000))
         elif liczba_elementów < 3:
             self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
             
@@ -130,6 +213,10 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.pole_powierzchni_wynik.clear()
         self.roznica_wysokosci_wynik.clear()
         self.pokaz_ilosc_punktow.clear()
+        self.azymut_odwrotny_wynik.clear()
+        self.blad_rozwiazanie.clear()
+        self.azymut_wynik.clear()
+        self.dlugosc_odcinka_wynik.clear()
         
         
         
