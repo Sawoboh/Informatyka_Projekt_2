@@ -29,6 +29,8 @@ from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
 from qgis.core import QgsField, QgsFeature, QgsGeometry, QgsVectorLayer, QgsPointXY, QgsProject
 from PyQt5.QtCore import QVariant
+from qgis.core import QgsFields
+from qgis.core import QgsCoordinateReferenceSystem
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'wtyczka_projekt_3_dialog_base.ui'))
@@ -54,6 +56,9 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.azymut.clicked.connect(self.azymut_funkcja)
         self.dlugosc_odcinka.clicked.connect(self.dlugosc_odcinka_funkcja)
         self.resetuj_wszystko.clicked.connect(self.wyczyszczenie_danych_funkcja)
+        self.wybor_pliku.fileChanged.connect(self.wybranie_pliku_funkcja)
+        self.zapisanie_pliku.clicked.connect(self.zapisanie_pliku_funkcja)
+        #self.sciezka_do_zapisu.fileChanged.connect(self.wybranie_sciezki_do_zapisu)
     
     def dlugosc_odcinka_funkcja(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
@@ -225,7 +230,105 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.blad_rozwiazanie.clear()
         self.azymut_wynik.clear()
         self.dlugosc_odcinka_wynik.clear()
+    
+
+    def wybranie_pliku_funkcja(self):
+        self.wybor_pliku.fileChanged.connect(self.handleFileChanged)
+        file_path = self.wybor_pliku.fileChanged.connect(self.handleFileChanged)
+    
+    def handleFileChanged(self, file_path):
+        koordynaty = []
+        with open(file_path, 'r') as plik:
+            for wiersz in plik:
+                wiersz = wiersz.strip()
+                oddzielenie = wiersz.split(";")
+                x = float(oddzielenie[0])
+                y = float(oddzielenie[1])
+                z = float(oddzielenie[2])
+                koordynaty.append([x, y, z])
+
+        layer_name = 'Wczytane punkty'
+        crs = QgsCoordinateReferenceSystem('EPSG:2180')
+        warstwa = QgsVectorLayer('Point?crs=' + crs.authid(), layer_name, 'memory')
+    
+        provider = warstwa.dataProvider()
+        provider.addAttributes([QgsField('X', QVariant.Double),
+                                QgsField('Y', QVariant.Double),
+                                QgsField('h', QVariant.Double)])
+        warstwa.updateFields()
+    
+        features = []
+        for koordynaty_punkt in koordynaty:
+            point = QgsPointXY(koordynaty_punkt[0], koordynaty_punkt[1])
+            feature = QgsFeature()
+            feature.setGeometry(QgsGeometry.fromPointXY(point))
+            feature.setAttributes([koordynaty_punkt[0], koordynaty_punkt[1], koordynaty_punkt[2]])
+            features.append(feature)
+    
+        provider.addFeatures(features)
+        warstwa.updateExtents()
+    
+        # Add the layer to the project
+        QgsProject.instance().addMapLayer(warstwa)
         
+        #usuniecie warstwy
+        layer_name = "Wczytane punkty"
+        project = QgsProject.instance()
         
+        while len(project.mapLayersByName(layer_name)) > 1:
+            project.removeMapLayer(project.mapLayersByName(layer_name)[0])
+            
+    def zapisanie_pliku_funkcja(self, file_path):
+        nazwa_pliku = "Wyniki_z_przycisku.txt"
+        file_path = file_path + "/" + nazwa_pliku
+        with open(file_path, "w") as plik:
+            wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
+            K = []
+            iden = 0
+            for element in wybrane_elementy:
+                wsp = element.geometry().asPoint()
+                X = wsp.x()
+                Y = wsp.y()
+                K.append([X, Y])
+                iden += 1
+                plik.write(f"Współrzędne punktu numer {iden}: X = {X:.3f}, Y = {Y:.3f}\n")
+                
+            liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
+            if liczba_elementów == 2:
+                Az = atan2((K[1][1]-K[0][1]), (K[1][0]-K[0][0]))
+                if 'stopnie_dziesietne' == self.jednostka_azymut.currentText():
+                    Az =Az*180/pi
+                    if Az < 0:
+                        Az += 360
+                    elif Az > 360:
+                        Az -= 360
+                    Az_odw = Az+180
+                    if Az_odw < 0:
+                        Az_odw += 360
+                    elif Az_odw > 360:
+                        Az_odw -= 360
+                    plik.write(f"Azymut wynosi: {Az:.7f}\n")
+                    plik.write(f"Azymut odwrotny wynosi: {Az_odw:.7f}\n")
+                elif 'grady' == self.jednostka_azymut.currentText():
+                    Az =Az*200/pi
+                    if Az < 0:
+                        Az += 400
+                    elif Az > 400:
+                        Az -= 400
+                    Az_odw = Az+200
+                    if Az_odw < 0:
+                        Az_odw += 400
+                    elif Az_odw > 400:
+                        Az_odw -= 400
+                    plik.write(f"Azymut wynosi: {Az:.4f}\n")
+                    plik.write(f"Azymut odwrotny wynosi: {Az_odw:.4f}\n")
+            elif liczba_elementów < 2:
+                plik.write(f"Azymut wynosi: Wybrano za mało punktów")
+            elif liczba_elementów > 2:
+                plik.write(f"Azymut wynosi: Wybrano za dużo punktów")
         
-         
+        """
+        def wybranie_sciezki_do_zapisu(self):
+            file_path = self.sciezka_do_zapisu.fileChanged.connect(self.zapisanie_pliku_funkcja)
+        """
+            
