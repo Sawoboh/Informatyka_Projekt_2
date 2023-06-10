@@ -293,53 +293,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         
         while len(project.mapLayersByName(layer_name)) > 1:
             project.removeMapLayer(project.mapLayersByName(layer_name)[0])
-    '''
-    def wybranie_pliku_funkcja(self):
-        self.wybor_pliku.fileChanged.connect(self.handleFileChanged)
-        file_path = self.wybor_pliku.fileChanged.connect(self.handleFileChanged)
-    
-    def handleFileChanged(self, file_path):
-        koordynaty = []
-        with open(file_path, 'r') as plik:
-            for wiersz in plik:
-                wiersz = wiersz.strip()
-                oddzielenie = wiersz.split(";")
-                x = float(oddzielenie[0])
-                y = float(oddzielenie[1])
-                z = float(oddzielenie[2])
-                koordynaty.append([x, y, z])
-
-        layer_name = 'Wczytane punkty'
-        crs = QgsCoordinateReferenceSystem('EPSG:2180')
-        warstwa = QgsVectorLayer('Point?crs=' + crs.authid(), layer_name, 'memory')
-    
-        provider = warstwa.dataProvider()
-        provider.addAttributes([QgsField('X', QVariant.Double),
-                                QgsField('Y', QVariant.Double),
-                                QgsField('h', QVariant.Double)])
-        warstwa.updateFields()
-    
-        features = []
-        for koordynaty_punkt in koordynaty:
-            point = QgsPointXY(koordynaty_punkt[0], koordynaty_punkt[1])
-            feature = QgsFeature()
-            feature.setGeometry(QgsGeometry.fromPointXY(point))
-            feature.setAttributes([koordynaty_punkt[0], koordynaty_punkt[1], koordynaty_punkt[2]])
-            features.append(feature)
-    
-        provider.addFeatures(features)
-        warstwa.updateExtents()
-    
-        # Add the layer to the project
-        QgsProject.instance().addMapLayer(warstwa)
         
-        #usuniecie warstwy
-        layer_name = "Wczytane punkty"
-        project = QgsProject.instance()
-        
-        while len(project.mapLayersByName(layer_name)) > 1:
-            project.removeMapLayer(project.mapLayersByName(layer_name)[0])
-        '''    
     def zapisanie_pliku_funkcja(self):
         desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
         file_path = os.path.join(desktop_path, "Plik_wynikowy_wtyczki_AM_DJ.txt")
