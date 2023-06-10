@@ -3,10 +3,10 @@
 \subsection{Wybrany język programowania i interpreter Spyder}
 
 \begin{itemize}
-\item Python - język programowania, w którym napisany jest skrypt ćwiczenia.
-\item Spyder - jest to środowisko programistyczne dla języka Python, które zawiera edytor kodu, interpreter, konsolę i wiele innych funkcjonalności.
-\item Najlepiej pobrać Spydera za pośrednictwem anacondy, która ma domyślie zainstalowane środowisko programistyczne Spyder \href{https://www.anaconda.com/download}{www.anaconda.com/download}	\citep{Anaconda}
-\item Qgis - program do który jest napisana nasza wtyczka. Zapośrednitwem tego programu zliczamy punkty itp.
+	\item Python - język programowania, w którym napisany jest skrypt ćwiczenia.
+	\item Spyder - jest to środowisko programistyczne dla języka Python, które zawiera edytor kodu, interpreter, konsolę i wiele innych funkcjonalności.
+	\item Najlepiej pobrać Spydera za pośrednictwem anacondy, która ma domyślie zainstalowane środowisko programistyczne Spyder \href{https://www.anaconda.com/download}{www.anaconda.com/download}	\citep{Anaconda}
+	\item Qgis - program do który jest napisana nasza wtyczka. Zapośrednitwem tego programu zliczamy punkty itp.
 \end{itemize}
 
 \subsection{System operacyjny}
@@ -17,8 +17,11 @@ Ten skrypt został napisany w systemie operacyjnym Microsoft (Windows 10 oraz Wi
 
 Do wykonania ćwiczenia należy użyć następujących bibliotek:
 \begin{enumerate}
-
-
+	\item os - to biblioteka standardowa w języku python, która zapewnia interfejs do operacji na systemie operacyjnym (np. dostęp do plików, zarządzanie procesami, zmiana katalogu roboczego)
+	\item PyQt5 - PyQt5 to zestaw narzędzi do tworzenia aplikacji graficznych w języku Python przy użyciu biblioteki Qt. Qt jest popularnym frameworkiem do tworzenia interfejsów użytkownika. Nie jest on wbudowany w pythona dlatego trzeba go zainstalować.
+	\item qgis.PyQt - moduł w bibliotece QGIS Python, który jest wykorzystywany do tworzenia interfejsów użytkownika w QGIS przy użyciu PyQt. Nie jest to samodzielna biblioteka PyQt5. Działa w połączeniu z biblioteką QGIS.
+	\item qgis.core - to moduł w bibliotece QGIS Python, który dostarcza podstawowe funkcje i klasy do pracy z danymi przestrzennymi w QGIS. Nie jest to samodzielna biblioteka PyQt5. Działa w połączeniu z biblioteką QGIS.
+	\item PyQt5.QtCore - to moduł w bibliotece PyQt5, który zawiera podstawowe klasy i funkcje rdzenne dla PyQt5. Moduł ten dostarcza elementy i funkcjonalności, które są częścią modułu QtCore w oryginalnej bibliotece Qt.
 \end{enumerate}
 
-Należy również pobrać plik o nazwie "ttt.qgz", który znajduje się na zdalnym repozytorium GitHub pod linkiem: \href{https://github.com/Sawoboh/Informatyka_Projekt_2.git}{https://github.com/Sawoboh/Informatyka\_Projekt\_2.git} da on możliwość testowania wtyczki w qgis.  
+Należy również pobrać plik o nazwie "ttt.qgz", który znajduje się na zdalnym repozytorium GitHub pod linkiem: \href{https://github.com/Sawoboh/Informatyka_Projekt_2.git}{https://github.com/Sawoboh/Informatyka\_Projekt\_2.git} da on możliwość testowania wtyczki w qgis na podanych punktach.    

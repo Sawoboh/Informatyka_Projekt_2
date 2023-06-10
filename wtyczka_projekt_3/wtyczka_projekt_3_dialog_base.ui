@@ -150,7 +150,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Wyczysc tablice</string>
+    <string>Wyczyść tablice</string>
    </property>
   </widget>
   <widget class="QLabel" name="Aktualna_warstwa">
@@ -338,7 +338,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Zresrtuj wszytskie pola</string>
+    <string>Zresrtuj wszystkie pola</string>
    </property>
   </widget>
   <widget class="QLabel" name="poligon">
