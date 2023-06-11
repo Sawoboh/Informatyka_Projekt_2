@@ -272,7 +272,6 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.roznica_wysokosci_wynik.clear()
         self.pokaz_ilosc_punktow.clear()
         self.azymut_odwrotny_wynik.clear()
-        self.blad_rozwiazanie.clear()
         self.azymut_wynik.clear()
         self.dlugosc_odcinka_wynik.clear()
     
