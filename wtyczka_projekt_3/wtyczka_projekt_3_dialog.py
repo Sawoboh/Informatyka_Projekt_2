@@ -72,8 +72,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 Y = wsp.y()
                 K.append([X, Y])
             odl=sqrt((K[0][0]-K[1][0])**2+(K[0][1]-K[1][1])**2)
-            self.dlugosc_odcinka_wynik.setText(f'Odległosć pomiędzy punktami wynosi: {odl:.3f} [m]')
-            self.blad_rozwiazanie.clear()
+            self.dlugosc_odcinka_wynik.setText(f'Odległosć pomiędzy punktami (punkt id:1- id:2) wynosi: {odl:.3f} [m]')
         elif liczba_elementów < 2:
             self.dlugosc_odcinka_wynik.setText("Błąd")
             okienko = QMessageBox()
@@ -119,28 +118,26 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                     Az += 360
                 elif Az > 360:
                     Az -= 360
-                self.azymut_wynik.setText(f'Azymut wynosi: {Az:.7f}[stopnie_dziesietne]')
+                self.azymut_wynik.setText(f'Azymut wynosi (punkt id:1- id:2): {Az:.7f}[stopnie_dziesietne]')
                 Az_odw = Az+180
                 if Az_odw < 0:
                     Az_odw += 360
                 elif Az_odw > 360:
                     Az_odw -= 360
-                self.azymut_odwrotny_wynik.setText(f'Azymut odwrotny wynosi: {Az_odw:.7f}[stopnie_dziesietne]')
-                self.blad_rozwiazanie.clear()
+                self.azymut_odwrotny_wynik.setText(f'Azymut odwrotny wynosi (punkt id:2- id:1): {Az_odw:.7f}[stopnie_dziesietne]')
             elif 'grady' == self.jednostka_azymut.currentText():
                 Az =Az*200/pi
                 if Az < 0:
                     Az += 400
                 elif Az > 400:
                     Az -= 400
-                self.azymut_wynik.setText(f'Azymut wynosi: {Az:.4f}[grady]')
+                self.azymut_wynik.setText(f'Azymut wynosi (punkt id:1- id:2): {Az:.4f}[grady]')
                 Az_odw = Az+200
                 if Az_odw < 0:
                     Az_odw += 400
                 elif Az_odw > 400:
                     Az_odw -= 400
-                self.azymut_odwrotny_wynik.setText(f'Azymut odwrotny wynosi: {Az_odw:.4f}[grady]')
-                self.blad_rozwiazanie.clear()
+                self.azymut_odwrotny_wynik.setText(f'Azymut odwrotny wynosi (punkt id:2- id:1): {Az_odw:.4f}[grady]')
         elif liczba_elementów < 2:
             self.azymut_wynik.setText("Błąd")
             self.azymut_odwrotny_wynik.setText("Błąd")
@@ -187,8 +184,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             for i in wybrane:
                 K.append(i[2])
             roznica_wysokosci=K[1]-K[0]
-            self.roznica_wysokosci_wynik.setText(f'Róznica wysokosci wynosi {roznica_wysokosci:.3f}[m]')
-            self.blad_rozwiazanie.clear()
+            self.roznica_wysokosci_wynik.setText(f'Róznica wysokosci wynosi (punkt id:1- id:2): {roznica_wysokosci:.3f}[m]')
         elif liczba_elementów < 2:
             self.roznica_wysokosci_wynik.setText("Błąd")
             okienko = QMessageBox()
@@ -323,10 +319,12 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             project.removeMapLayer(project.mapLayersByName(layer_name)[0])
         
     def zapisanie_pliku_funkcja(self):
+        '''
         desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
         file_path = os.path.join(desktop_path, "Plik_wynikowy_wtyczki_AM_DJ.txt")
-
-        with open(file_path, "w") as plik:
+        '''
+        
+        with open("Plik_wynikowy_wtyczki_AM_DJ.txt", "w") as plik:
             wybrane_elementy = self.mMapLayerComboBox_layers.currentLayer().selectedFeatures()
             punkty_ilosc=len(wybrane_elementy)
             plik.write(f'liczba wybranych punktów: {punkty_ilosc}\n')
@@ -354,8 +352,8 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                         Az_odw += 360
                     elif Az_odw > 360:
                         Az_odw -= 360
-                    plik.write(f"Azymut wynosi: {Az:.7f}[stopnie dziesiętne]\n")
-                    plik.write(f"Azymut odwrotny wynosi: {Az_odw:.7f}[stopnie dziesiętne]\n")
+                    plik.write(f"Azymut wynosi (punkt id:1- id:2): {Az:.7f}[stopnie dziesiętne]\n")
+                    plik.write(f"Azymut odwrotny wynosi(punkt id:2- id:1): {Az_odw:.7f}[stopnie dziesiętne]\n")
                 elif 'grady' == self.jednostka_azymut.currentText():
                     Az =Az*200/pi
                     if Az < 0:
@@ -367,17 +365,17 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                         Az_odw += 400
                     elif Az_odw > 400:
                         Az_odw -= 400
-                    plik.write(f"Azymut wynosi: {Az:.4f}[grady]\n")
-                    plik.write(f"Azymut odwrotny wynosi: {Az_odw:.4f}[grady]\n")
+                    plik.write(f"Azymut wynosi(punkt id:1- id:2): {Az:.4f}[grady]\n")
+                    plik.write(f"Azymut odwrotny wynosi(punkt id:2- id:1): {Az_odw:.4f}[grady]\n")
                 odl=sqrt((K[0][0]-K[1][0])**2+(K[0][1]-K[1][1])**2)
-                plik.write(f'Odległosć miedzy punktami wynosi: {odl:.3f} [m] \n')
+                plik.write(f'Odległosć miedzy punktami (punkt id:1- id:2) wynosi: {odl:.3f} [m] \n')
                 wyb_war = iface.activeLayer()
                 wybrane = wyb_war.selectedFeatures()
                 L=[]
                 for i in wybrane:
                     L.append(i[2])
                 roznica_wysokosci=L[1]-L[0]
-                plik.write(f'Różnica wysokosci: {roznica_wysokosci:.3f} [m]\n')
+                plik.write(f'Różnica wysokosci (punkt id:1- id:2): {roznica_wysokosci:.3f} [m]\n')
             elif liczba_elementów < 2:
                 plik.write(f"Azymut wynosi: Wybrano za mało punktów\n ")
                 plik.write(f"Odległosć miedzy punktami wynosi: Wybrano za mało punktów\n ")
@@ -388,7 +386,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 plik.write(f"Różnica wysokoci: Wybrano za dużo punktów\n")
             if liczba_elementów >=3:
                 suma=0
-                K = self.sort_points_clockwise(K)
+                K = self.sortuj_punkty(K)
                 for i in range(len(K)):
                     if i<len(K)-1:
                         P=(K[i][0]*(K[i+1][1]-K[i-1][1]))
