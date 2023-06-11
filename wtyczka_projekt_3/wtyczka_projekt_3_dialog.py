@@ -24,16 +24,13 @@
 
 import os
 from math import atan2, sqrt, pi
-import math
 from qgis.utils import iface
 
-
-from qgis.PyQt import uic
-from qgis.PyQt import QtWidgets
-from qgis.core import QgsField, QgsFeature, QgsGeometry, QgsVectorLayer, QgsPointXY, QgsProject
+from qgis.PyQt import QtWidgets, uic
+from qgis.core import QgsField, QgsFeature, QgsGeometry, QgsVectorLayer, QgsPointXY, QgsProject, QgsCoordinateReferenceSystem, QgsFields
 from PyQt5.QtCore import QVariant
-from qgis.core import QgsFields
-from qgis.core import QgsCoordinateReferenceSystem
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtGui import QIcon
 # This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'wtyczka_projekt_3_dialog_base.ui'))
@@ -61,7 +58,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.resetuj_wszystko.clicked.connect(self.wyczyszczenie_danych_funkcja)
         self.zapisanie_pliku.clicked.connect(self.zapisanie_pliku_funkcja)
         self.azymut_odwrotny.clicked.connect(self.azymut_funkcja)
-        self.wczytaj_plik.clicked.connect(self.handleFileChanged)
+        self.wczytaj_plik.clicked.connect(self.wybierz_plik_funkcja)
         #self.wybor_pliku.fileChanged.connect(self.wybranie_pliku_funkcja)
     
     def dlugosc_odcinka_funkcja(self):
@@ -79,16 +76,26 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             self.blad_rozwiazanie.clear()
         elif liczba_elementów < 2:
             self.dlugosc_odcinka_wynik.setText("Błąd")
-            self.blad_rozwiazanie.setText("Wybrano za mało punktów")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za mało punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
         elif liczba_elementów > 2:
             self.dlugosc_odcinka_wynik.setText("Błąd")
-            self.blad_rozwiazanie.setText("Wybrano za dużo punktów")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za dużo punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
                 
     def get_angle_funkcja(self, p, reference_point):
         # Oblicza kąt pomiędzy punktem p a punktem referencyjnym (np. środkiem ciężkości)
         dx = p[0] - reference_point[0]
         dy = p[1] - reference_point[1]
-        angle = math.atan2(dy, dx)  # Oblicza kąt w radianach
+        angle = atan2(dy, dx)  # Oblicza kąt w radianach
         return angle
 
     def sort_points_clockwise(self, points):
@@ -140,11 +147,21 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         elif liczba_elementów < 2:
             self.azymut_wynik.setText("Błąd")
             self.azymut_odwrotny_wynik.setText("Błąd")
-            self.blad_rozwiazanie.setText("Wybrano za mało punktów")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za mało punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
         elif liczba_elementów > 2:
             self.azymut_wynik.setText("Błąd")
             self.azymut_odwrotny_wynik.setText("Błąd")
-            self.blad_rozwiazanie.setText("Wybrano za dużo punktów")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za dużo punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
             
             
             
@@ -177,10 +194,20 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             self.blad_rozwiazanie.clear()
         elif liczba_elementów < 2:
             self.roznica_wysokosci_wynik.setText("Błąd")
-            self.blad_rozwiazanie.setText("Wybrano za mało punktów")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za mało punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
         elif liczba_elementów > 2:
             self.roznica_wysokosci_wynik.setText("Błąd")
-            self.blad_rozwiazanie.setText("Wybrano za dużo punktów")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za dużo punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
             
             
     def pole_powierzchni_funkcja(self):
@@ -217,25 +244,31 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 warstaw_poligon = QgsVectorLayer('Polygon?crs=EPSG:2180', 'poligion_obliczonego_pola', 'memory')
                 warstaw_poligon.startEditing()
                 
-                field = QgsField("Area", QVariant.Double)
-                warstaw_poligon.addAttribute(field)
+                pole = QgsField("Area", QVariant.Double)
+                warstaw_poligon.addAttribute(pole)
 
-                polygon = QgsGeometry.fromPolygonXY([[QgsPointXY(point[0], point[1]) for point in K]])
+                poligon = QgsGeometry.fromPolygonXY([[QgsPointXY(point[0], point[1]) for point in K]])
                 
-                area = polygon.area()
-                attributes = [area]
+                area = poligon.area()
+                atrybut = [area]
                 
-                feature = QgsFeature()
-                feature.setGeometry(polygon)
-                feature.setAttributes(attributes)
-                warstaw_poligon.addFeature(feature)
+                funkcja = QgsFeature()
+                funkcja.setGeometry(poligon)
+                funkcja.setAttributes(atrybut)
+                warstaw_poligon.addFeature(funkcja)
                 
                 warstaw_poligon.commitChanges()
                 warstaw_poligon.updateExtents()
                 QgsProject.instance().addMapLayer(warstaw_poligon)
                 
         elif liczba_elementów < 3:
-            self.pole_powierzchni_wynik.setText("Wybrano za mało punktów")
+            self.pole_powierzchni_wynik.setText("Bład")
+            okienko = QMessageBox()
+            okienko.setIcon(QMessageBox.Critical)
+            okienko.setText("Wybrano za mało punktów")
+            okienko.setInformativeText("")
+            okienko.setWindowTitle("Błąd")
+            okienko.exec_()
             
     def wyczyszczenie_tablicy_funkcja(self):
         self.wspolrzedne.clear()
@@ -251,10 +284,10 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         self.dlugosc_odcinka_wynik.clear()
     
     
-    def handleFileChanged(self):
-        file_path = self.wybor_pliku.filePath()
+    def wybierz_plik_funkcja(self):
+        sciezka = self.wybor_pliku.filePath()
         koordynaty = []
-        with open(file_path, 'r') as plik:
+        with open(sciezka, 'r') as plik:
             for wiersz in plik:
                 wiersz = wiersz.strip()
                 oddzielenie = wiersz.split(";")
@@ -263,9 +296,9 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 z = float(oddzielenie[2])
                 koordynaty.append([x, y, z])
 
-        layer_name = 'Wczytane punkty'
+        nazwa_warstwy = 'Wczytane punkty'
         crs = QgsCoordinateReferenceSystem('EPSG:2180')
-        warstwa = QgsVectorLayer('Point?crs=' + crs.authid(), layer_name, 'memory')
+        warstwa = QgsVectorLayer('Point?crs=' + crs.authid(), nazwa_warstwy, 'memory')
     
         provider = warstwa.dataProvider()
         provider.addAttributes([QgsField('X', QVariant.Double),
@@ -273,15 +306,15 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                                 QgsField('h', QVariant.Double)])
         warstwa.updateFields()
     
-        features = []
+        cechy = []
         for koordynaty_punkt in koordynaty:
-            point = QgsPointXY(koordynaty_punkt[0], koordynaty_punkt[1])
+            punkt = QgsPointXY(koordynaty_punkt[0], koordynaty_punkt[1])
             feature = QgsFeature()
-            feature.setGeometry(QgsGeometry.fromPointXY(point))
+            feature.setGeometry(QgsGeometry.fromPointXY(punkt))
             feature.setAttributes([koordynaty_punkt[0], koordynaty_punkt[1], koordynaty_punkt[2]])
-            features.append(feature)
+            cechy.append(feature)
     
-        provider.addFeatures(features)
+        provider.addFeatures(cechy)
         warstwa.updateExtents()
     
         # Add the layer to the project
@@ -356,8 +389,8 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 plik.write(f"Różnica wysokosci: Wybrano za mało punktów\n")
             elif liczba_elementów > 2:
                 plik.write(f"Azymut wynosi: Wybrano za dużo punktów\n")
-                plik.write(f"Odległosć miedzy punktami wynosi: Wybrano za mało punktów\n")
-                plik.write(f"Różnica wysokoci: Wybrano za mało punktów\n")
+                plik.write(f"Odległosć miedzy punktami wynosi: Wybrano za dużo punktów\n")
+                plik.write(f"Różnica wysokoci: Wybrano za dużo punktów\n")
             if liczba_elementów >=3:
                 suma=0
                 K = self.sort_points_clockwise(K)

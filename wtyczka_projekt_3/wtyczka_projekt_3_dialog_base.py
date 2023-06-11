@@ -94,10 +94,6 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         self.azymut_odwrotny_wynik.setGeometry(QtCore.QRect(170, 250, 451, 31))
         self.azymut_odwrotny_wynik.setText("")
         self.azymut_odwrotny_wynik.setObjectName("azymut_odwrotny_wynik")
-        self.blad_rozwiazanie = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
-        self.blad_rozwiazanie.setGeometry(QtCore.QRect(610, 120, 191, 21))
-        self.blad_rozwiazanie.setText("")
-        self.blad_rozwiazanie.setObjectName("blad_rozwiazanie")
         self.jednostka_azymut = QtWidgets.QComboBox(WtyczkaProjekt3DialogBase)
         self.jednostka_azymut.setGeometry(QtCore.QRect(270, 40, 141, 31))
         self.jednostka_azymut.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToMinimumContentsLength)
@@ -169,9 +165,6 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         font.setPointSize(11)
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(WtyczkaProjekt3DialogBase)
-        self.label_5.setGeometry(QtCore.QRect(610, 90, 171, 20))
-        self.label_5.setObjectName("label_5")
         self.wczytaj_plik = QtWidgets.QPushButton(WtyczkaProjekt3DialogBase)
         self.wczytaj_plik.setGeometry(QtCore.QRect(430, 480, 181, 28))
         self.wczytaj_plik.setObjectName("wczytaj_plik")
@@ -210,7 +203,6 @@ class Ui_WtyczkaProjekt3DialogBase(object):
         self.azymut_odwrotny.setText(_translate("WtyczkaProjekt3DialogBase", "Azymut odwrotny"))
         self.label_2.setText(_translate("WtyczkaProjekt3DialogBase", "Możliwe operacje po wybraniu 3 lub więcej punktów:"))
         self.label_4.setText(_translate("WtyczkaProjekt3DialogBase", "Możliwe operacje niezależnie od liości punktów:"))
-        self.label_5.setText(_translate("WtyczkaProjekt3DialogBase", "Rozwiązanie błędu:"))
         self.wczytaj_plik.setText(_translate("WtyczkaProjekt3DialogBase", "Wczytaj plik"))
 from qgsfilewidget import QgsFileWidget
 from qgsmaplayercombobox import QgsMapLayerComboBox

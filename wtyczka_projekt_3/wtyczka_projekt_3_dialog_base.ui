@@ -273,19 +273,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="blad_rozwiazanie">
-   <property name="geometry">
-    <rect>
-     <x>610</x>
-     <y>120</y>
-     <width>191</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QComboBox" name="jednostka_azymut">
    <property name="geometry">
     <rect>
@@ -522,19 +509,6 @@
    </property>
    <property name="text">
     <string>Możliwe operacje niezależnie od liości punktów:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>610</x>
-     <y>90</y>
-     <width>171</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Rozwiązanie błędu:</string>
    </property>
   </widget>
   <widget class="QPushButton" name="wczytaj_plik">

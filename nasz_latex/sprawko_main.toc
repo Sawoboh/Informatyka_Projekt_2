@@ -11,8 +11,10 @@
 \contentsline {subsection}{\numberline {3.4}Stworzenie - Azymut}{3}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Stworzenie - Długość odcinka}{3}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Stworzenie - Wyświetlanie się współrzędnych}{3}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}Stworzenie - Pole powierzchni}{3}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.7}Stworzenie - Pole powierzchni}{4}{subsection.3.7}%
 \contentsline {subsection}{\numberline {3.8}Stworzenie - Reset QLabel}{4}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Stworzenie - Wczytanie pliku}{4}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.10}Stworzenie - Zapisanie pliku}{4}{subsection.3.10}%
 \contentsline {section}{\numberline {4}Podsumowanie}{4}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Rezultaty}{4}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Umiejętności nabyte}{4}{subsection.4.2}%

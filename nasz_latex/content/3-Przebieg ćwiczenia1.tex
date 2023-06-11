@@ -8,19 +8,25 @@ zamieniony na kod z rozszerzeniem ".py".
 Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Zlicz punkty". Następnie stworzono w Pythonie funkcję o nazwie "licz\_elementy", która zlicza ilość punktów i pokazuje ją w QLabel o nazwie "pokaz\_ilosc\_punktow". Dodatkowo, w Pythonie ustawiono, że jeśli użytkownik kliknie przycisk, to wynik pojawi się w QLabel.
 
 \subsection{Stworzenie - Różnica wysokości}
-Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Różnica wysokości". Następnie stworzono w Pythonie funkcję o nazwie "roznica\_wysokosci\_funkcja", która liczy różnicę wysokości pomiędzy dwoma punktami i pokazuje ją w QLabel o nazwie "roznica\_wysokosci\_wynik". Dodatkowo, w Pythonie ustawiono, że jeśli użytkownik poda za dużą ilość punktów lub za małą, to wyświetli się napis "błąd" w QLabel.
+Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Różnica wysokości". Następnie stworzono w Pythonie funkcję o nazwie "roznica\_wysokosci\_funkcja", która liczy różnicę wysokości pomiędzy dwoma punktami i pokazuje ją w QLabel o nazwie "roznica\_wysokosci\_wynik". Dodatkowo, w Pythonie ustawiono, że jeśli użytkownik poda za dużą ilość punktów lub za małą, to wyświetli się napis "błąd" w QLabel oraz okienko z informacją jakiego rodzaju błąd wystąpił.
 
 \subsection{Stworzenie - Azymut}
-Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Azymut". Następnie stworzono w Pythonie funkcję o nazwie "azymut\_funkcja", która liczy azymut pomiędzy dwoma punktami i pokazuje go w QLabel o nazwie "azymut\_wynik". Funkcja ta liczy również azymut odwrotny, ponieważ użytkownik nie ma wpływu na wybór, który punkt jest pierwszy (może to sprawdzić za pomocą wyświetlania współrzędnych, gdzie jest podane id punktu). Dodano również QComboBox, w którym można wybrać jednostki, w jakich będzie wyświetlany wynik w QLabel.
+Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Azymut". Następnie stworzono w Pythonie funkcję o nazwie "azymut\_funkcja", która liczy azymut pomiędzy dwoma punktami i pokazuje go w QLabel o nazwie "azymut\_wynik". Funkcja ta liczy również azymut odwrotny, ponieważ użytkownik nie ma wpływu na wybór, który punkt jest pierwszy (może to sprawdzić za pomocą wyświetlania współrzędnych, gdzie jest podane id punktu). Dodano również QComboBox, w którym można wybrać jednostki, w jakich będzie wyświetlany wynik w QLabel .Pythonie ustawiono, że jeśli użytkownik poda za dużą ilość punktów lub za małą, to wyświetli się napis "błąd" w QLabel oraz okienko z informacją jakiego rodzaju błąd wystąpił.
 
 \subsection{Stworzenie - Długość odcinka}
-Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Długość odcinka". Następnie stworzono w Pythonie funkcję o nazwie "dlugosc\_odcinka\_funkcja", która liczy odległość pomiędzy dwoma punktami i pokazuje ją w QLabel o nazwie "dlugosc\_odcinka\_wynik". Dodatkowo, w Pythonie ustawiono, że jeśli użytkownik poda za dużą ilość punktów lub za małą, to wyświetli się napis "błąd" w QLabel.
+Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Długość odcinka". Następnie stworzono w Pythonie funkcję o nazwie "dlugosc\_odcinka\_funkcja", która liczy odległość pomiędzy dwoma punktami i pokazuje ją w QLabel o nazwie "dlugosc\_odcinka\_wynik". Dodatkowo, w Pythonie ustawiono, że jeśli użytkownik poda za dużą ilość punktów lub za małą, to wyświetli się napis "błąd" w QLabel oraz okienko z informacją jakiego rodzaju błąd wystąpił.
 
 \subsection{Stworzenie - Wyświetlanie się współrzędnych}
 Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Wyświetl współrzędne". Następnie stworzono w Pythonie funkcję o nazwie "wspolrzedne\_funkcja", która liczy współrzędne X i Y punktów i wyświetla je w QTextEdit o nazwie "wspolrzedne".
 
 \subsection{Stworzenie - Pole powierzchni}
-Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Pole powierzchni". Następnie stworzono w Pythonie funkcję o nazwie "pole\_powierzchni\_funkcja", która liczy pole powierzchni. Dodatkowo dodano QComboBox, w którym można wybrać jednostki wynikowe. W Pythonie ustawiono również, że jeśli użytkownik poda za małą ilość punktów, to wyświetli się napis "błąd" w QLabel.
+Za pomocą Qt Designer dodano przycisk (QPushButton) o nazwie "Pole powierzchni". Następnie stworzono w Pythonie funkcję o nazwie "pole\_powierzchni\_funkcja", która liczy pole powierzchni. Dodatkowo dodano QComboBox, w którym można wybrać jednostki wynikowe. W Pythonie ustawiono również, że jeśli użytkownik poda za małą ilość punktów, to wyświetli się napis "błąd" w QLabel oraz okienko z informacją jakiego rodzaju błąd wystąpił.
 
 \subsection{Stworzenie - Reset QLabel}
 Za pomocą Qt Designer dodano przyciski (QPushButton) o nazwie "Zresetuj wszystkie pola", "Wyczyść tablicę" oraz przycisk zamknięcia wtyczki. Następnie stworzono w Pythonie funkcje o nazwie "wyczyszczenie\_tablicy\_funkcja" oraz "wyczyszczenie\_danych\_funkcja", które czyszczą QLabel.
+
+\subsection{Stworzenie - Wczytanie pliku}
+Za pomocą Qt Designer dodano QgsFileWidget który umożliwia nam wskazanie pliku txt, który chcemy wczytać. Natępnie są na nim prowadzone opracje i w atrybutach zapisywane są XYh punktu. 
+
+\subsection{Stworzenie - Zapisanie pliku}
+Za pomocą Qt Designer dodano QPushButton o nazwie zapisz plik wynikowy. Wtedy program wykonuje szereg operacji dzięki którym w pliku zapiszą się operacje wtyczki na wybranych punktach. Plik wynikowy zapisuje się na pulpicie i zawsze pod tą samą nazwą "Plik\_wynikowy\_wtyczki\_AM\_DJ.txt". Jeśli użytkownik chce mieć kilka plików powinnien ręcznie zmieniać nazwy.
