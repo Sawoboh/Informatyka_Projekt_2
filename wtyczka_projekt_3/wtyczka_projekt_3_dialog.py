@@ -91,19 +91,16 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
             okienko.setWindowTitle("Błąd")
             okienko.exec_()
                 
-    def get_angle_funkcja(self, p, reference_point):
-        # Oblicza kąt pomiędzy punktem p a punktem referencyjnym (np. środkiem ciężkości)
-        dx = p[0] - reference_point[0]
-        dy = p[1] - reference_point[1]
-        angle = atan2(dy, dx)  # Oblicza kąt w radianach
-        return angle
+    def get_kat(self, p, punkt_1):
+        dx = p[0] - punkt_1[0]
+        dy = p[1] - punkt_1[1]
+        kat = atan2(dy, dx)  
+        return kat
 
-    def sort_points_clockwise(self, points):
-        # Sortuje punkty zgodnie z ruchem wskazówek zegara
-
-        reference_point = [sum(p[0] for p in points) / len(points), sum(p[1] for p in points) / len(points)]
-        sorted_points = sorted(points, key=lambda p: self.get_angle_funkcja( p, reference_point))
-        return sorted_points
+    def sortuj_punkty(self, K):
+        punkt_1 = [sum(p[0] for p in K) / len(K), sum(p[1] for p in K) / len(K)]
+        posortowane_punkty = sorted(K, key=lambda p: self.get_kat( p,  punkt_1))
+        return posortowane_punkty
            
     def azymut_funkcja(self):
         liczba_elementów = len(self.mMapLayerComboBox_layers.currentLayer().selectedFeatures())
@@ -221,7 +218,7 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
                 X = wsp.x()
                 Y = wsp.y()
                 K.append([X, Y])
-            K = self.sort_points_clockwise(K)
+            K = self.sortuj_punkty(K)
             suma=0
             for i in range(len(K)):
                 if i<len(K)-1:
