@@ -10,5 +10,4 @@ Wtyczka posiada możliwość wybrania warstwy na której dokonywane są obliczen
 
 Program wszystkie obliczenia dokonuje dla układu współrzędnych PL2000, EPSG=2180.
 
-
 Błędy: Obliczanie różnic wysokości nie będzie działać, gdy parametr wysokości nie będzie znajdował się w trzeciej kolumnie atrybutów punktów. Obliczanie wysokości nie bedzie działać, kiedy nie będzie atrybutu wysokości.
