@@ -314,10 +314,8 @@ class WtyczkaProjekt3Dialog(QtWidgets.QDialog, FORM_CLASS):
         provider.addFeatures(cechy)
         warstwa.updateExtents()
     
-        # Add the layer to the project
         QgsProject.instance().addMapLayer(warstwa)
         
-        #usuniecie warstwy
         layer_name = "Wczytane punkty"
         project = QgsProject.instance()
         
