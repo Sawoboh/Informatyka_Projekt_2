@@ -13,3 +13,5 @@ Wtyczke najlepiej testować na warstwie udostępnionej na github o nazwie punkty
 Program wszystkie obliczenia dokonuje dla układu współrzędnych PL2000, EPSG=2180.
 
 Błędy: Obliczanie różnic wysokości nie będzie działać, gdy parametr wysokości nie będzie znajdował się w trzeciej kolumnie atrybutów punktów. Obliczanie wysokości nie bedzie działać, kiedy nie będzie atrybutu wysokości.
+
+Wtyczka znajduję się w folderze "wtyczka_projekt_3" nalezy go przedniesc do folderu z wtyczkami QGIS'a
